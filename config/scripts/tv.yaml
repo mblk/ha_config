@@ -1,0 +1,134 @@
+
+
+tv_off:
+  alias: "TV: Aus"
+  mode: restart
+  sequence:
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:09
+  - delay: '5'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:36
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F0:36
+
+
+tv_on:
+  alias: "TV: Ein"
+  mode: restart
+  sequence:
+  - service: hdmi_cec.send_command
+    data:
+      raw: F0:04
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:09
+
+
+tv_twitch:
+  alias: "TV: Twitch"
+  mode: restart
+  sequence:
+  - service: hdmi_cec.send_command
+    data:
+      raw: F0:04
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:09
+  - delay: '10'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '5'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:00
+
+
+tv_netflix:
+  alias: "TV: Netflix"
+  mode: restart
+  sequence:
+  - service: hdmi_cec.send_command
+    data:
+      raw: F0:04
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:09
+  - delay: '10'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '5'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:04
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:00
+  - delay: '10'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:00
+
+
+
+tv_prime:
+  alias: "TV: Prime"
+  mode: restart
+  sequence:
+  - service: hdmi_cec.send_command
+    data:
+      raw: F0:04
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:09
+  - delay: '10'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '5'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:02
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:04
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:04
+  - delay: '1'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:00
+  - delay: '10'
+  - service: hdmi_cec.send_command
+    data:
+      raw: F4:44:00

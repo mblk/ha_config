@@ -1,0 +1,20 @@
+
+
+
+
+- alias: Any Button 4
+  trigger:
+  - device_id: cb927dc8f9bc81d7fad027c512a60c80
+    domain: zha
+    platform: device
+    type: remote_button_alt_double_press
+    subtype: button_4
+  - device_id: f54b5fae010cb7fa45492f457fe71b43
+    domain: zha
+    platform: device
+    type: remote_button_alt_double_press
+    subtype: button_4
+  action:
+  - service: script.allesaus
+
+

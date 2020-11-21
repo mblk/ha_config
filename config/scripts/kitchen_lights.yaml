@@ -1,0 +1,109 @@
+kitchen_lights_off:
+  alias: "Küche Licht: Aus"
+  mode: restart
+  sequence:
+  - service: light.turn_off
+    entity_id: light.kitchen_ceiling_1
+  - service: light.turn_off
+    entity_id: light.kitchen_ceiling_2
+  - service: light.turn_off
+    entity_id: light.kitchen_ceiling_3
+  - service: light.turn_off
+    entity_id: light.kitchen_ceiling_4
+
+
+
+kitchen_lights_half:
+  alias: "Küche Licht: Halb"
+  mode: restart
+  sequence:
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_1
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_2
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_3
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_4
+    data:
+      brightness: 128
+      color_temp: 370
+
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_1
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_2
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_3
+    data:
+      brightness: 128
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_4
+    data:
+      brightness: 128
+      color_temp: 370
+
+
+
+kitchen_lights_full:
+  alias: "Küche Licht: Voll"
+  mode: restart
+  sequence:
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_1
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_2
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_3
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_4
+    data:
+      brightness: 255
+      color_temp: 370
+
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_1
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_2
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_3
+    data:
+      brightness: 255
+      color_temp: 370
+  - service: light.turn_on
+    entity_id: light.kitchen_ceiling_4
+    data:
+      brightness: 255
+      color_temp: 370
+

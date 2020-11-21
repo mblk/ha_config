@@ -1,0 +1,5 @@
+test_script_1:
+  alias: 'Mein test skript'
+  sequence:
+  - service: light.toggle
+    entity_id: light.livingroom_led_3

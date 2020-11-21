@@ -1,0 +1,60 @@
+
+
+
+- alias: Eingang Tür Notification
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.entry_door
+    to: 'on'
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: Eingangstür geöffnet
+
+
+
+- alias: Bath Waterleak Notification
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.bath_waterleak
+    to: 'on'
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: Wasserleck Bad !!
+
+
+
+- alias: Kitchen Waterleak Notification
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.kitchen_waterleak
+    to: 'on'
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: Wasserleck Küche !!
+
+
+
+- alias: Home Zone Left
+  trigger:
+  - platform: state
+    entity_id: device_tracker.pocof2pro_pocof2pro
+    to: not_home
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: Zone verlassen
+
+
+
+- alias: Home Zone Entered
+  trigger:
+  - platform: state
+    entity_id: device_tracker.pocof2pro_pocof2pro
+    to: home
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: Zone betreten

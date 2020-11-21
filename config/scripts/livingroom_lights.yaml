@@ -1,0 +1,61 @@
+livingroom_lights_off:
+  alias: "Wohnzimmer Licht: Aus"
+  sequence:
+    - service: light.turn_off
+      entity_id: light.livingroom_led_1
+    - service: light.turn_off
+      entity_id: light.livingroom_led_2
+    - service: light.turn_off
+      entity_id: light.livingroom_led_3
+    - service: light.turn_off
+      entity_id: light.livingroom_led_strip_1
+
+
+
+livingroom_lights_half:
+  alias: "Wohnzimmer Licht: Halb"
+  sequence:
+    - service: light.turn_on
+      entity_id: light.livingroom_led_1
+      data:
+        brightness_pct: 50
+    - service: light.turn_on
+      entity_id: light.livingroom_led_2
+      data:
+        brightness_pct: 50
+        color_temp: 370
+    - service: light.turn_on
+      entity_id: light.livingroom_led_3
+      data:
+        brightness_pct: 50
+        color_temp: 370
+    - service: light.turn_on
+      entity_id: light.livingroom_led_strip_1
+      data:
+        brightness_pct: 50
+        color_temp: 495
+
+
+
+livingroom_lights_full:
+  alias: "Wohnzimmer Licht: Voll"
+  sequence:
+    - service: light.turn_on
+      entity_id: light.livingroom_led_1
+      data:
+        brightness: 255
+    - service: light.turn_on
+      entity_id: light.livingroom_led_2
+      data:
+        brightness: 255
+        color_temp: 370
+    - service: light.turn_on
+      entity_id: light.livingroom_led_3
+      data:
+        brightness: 255
+        color_temp: 370
+    - service: light.turn_on
+      entity_id: light.livingroom_led_strip_1
+      data:
+        brightness: 255
+        color_temp: 495

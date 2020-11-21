@@ -1,0 +1,14 @@
+.cloud
+.storage
+.vscode
+custom_components/
+neighbours/
+www/
+tts/
+deps/
+.HA_VERSION
+secrets.yaml
+known_devices.yaml
+zigbee.db
+home-assistant_v2.db
+home-assistant.log

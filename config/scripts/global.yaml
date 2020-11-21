@@ -1,0 +1,29 @@
+
+
+global_all_off:
+  alias: Alles aus
+  mode: single
+
+  sequence:
+  - service: input_boolean.turn_off
+    #data: {}
+    entity_id: input_boolean.kitchen_light_always_on
+
+  - service: climate.set_temperature
+    entity_id: climate.livingroom_thermostat
+    data:
+      temperature: '5'
+      hvac_mode: heat
+
+  - service: climate.set_temperature
+    entity_id: climate.bedroom_thermostat
+    data:
+      temperature: '5'
+      hvac_mode: heat
+
+  - scene: scene.wohnzimmer_licht_aus
+
+  - scene: scene.schlafzimmer_licht_aus
+
+  - service: script.kitchen_lights_off
+    #data: {}

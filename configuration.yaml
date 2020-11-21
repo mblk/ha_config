@@ -1,0 +1,108 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+scene: !include scenes.yaml
+
+#automation: !include automations.yaml
+#script a: !include scripts.yaml
+
+automation: !include_dir_merge_list config/automations/
+script: !include_dir_merge_named config/scripts/
+
+
+input_boolean:
+  wakeup_alarm:
+    name: "Wecker scharf"
+    initial: False
+  kitchen_light_on_manual:
+    name: "Küchenlicht an (manuell)"
+    initial: False
+  kitchen_light_on_auto:
+    name: "Küchenlicht an (automatik)"
+    initial: False
+
+input_datetime:
+  wakeup_time:
+    name: "Weckzeit"
+    has_date: false
+    has_time: true
+
+timer:
+  wakeup_alarm_timeout:
+    name: "Wecker auto-aus"
+    duration: '00:10:00'
+  kitchen_light_auto:
+    name: "Küche Licht Nachlauf"
+    duration: '00:00:10'
+
+
+#media_player:
+#  - platform: androidtv
+#    name: TV
+#    host: 192.168.178.31
+
+zha_map:
+
+panel_custom:
+  - name: custom-panel-zigzag
+    sidebar_title: Zigzag
+    sidebar_icon: mdi:zigbee
+    url_path: zigzag
+    module_url: /local/zigzag/zigzag-panel.js
+    trust_external_script: true
+    config:
+      who: world
+
+hdmi_cec:
+  devices:
+    TV: 0.0.0.0
+    Fire: 3.0.0.0
+
+telegram_bot:
+  - platform: broadcast
+    api_key: !secret telegram_api_token
+    allowed_chat_ids:
+      - !secret telegram_chat_id
+
+notify:
+  - platform: telegram
+    name: notify_telegram
+    chat_id: !secret telegram_chat_id
+
+sensor:
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+      - type: disk_free
+      - type: memory_use_percent
+      - type: swap_use_percent
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+  - platform: uptime
+  - platform: version
+
+device_tracker:
+  - platform: fritz
+    host: 192.168.178.1
+    track_new_devices: yes
+    interval_seconds: 30
+    consider_home: 300
+
+media_player:
+  - platform: mpd
+    host: localhost

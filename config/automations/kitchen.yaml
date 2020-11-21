@@ -1,0 +1,97 @@
+#
+# Motion sensor
+#
+
+- alias: Kitchen Occupancy Start
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    to: 'on'
+  action:
+  - service: timer.cancel
+    entity_id: timer.kitchen_light_auto
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.kitchen_light_on_auto
+
+- alias: Kitchen Occupancy End
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.kitchen_motion_occupancy
+    to: 'off'
+  action:
+  - service: timer.start
+    data:
+      duration: 00:00:10
+    entity_id: timer.kitchen_light_auto
+
+- alias: Kitchen Occupancy Timer
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.kitchen_light_auto
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.kitchen_light_on_auto
+
+#
+# Buttons
+#
+
+- alias: Kitchen Button 1
+  trigger:
+  - platform: device
+    device_id: f54b5fae010cb7fa45492f457fe71b43
+    domain: zha
+    type: remote_button_alt_short_press
+    subtype: button_1
+  action:
+  - service: input_boolean.toggle
+    entity_id: input_boolean.kitchen_light_on_manual
+
+#
+# Lights
+#
+
+- alias: Kitchen Light Full
+  trigger:
+  - platform: state
+    entity_id: input_boolean.kitchen_light_on_manual
+    from: 'off'
+    to: 'on'
+  action:
+  - service: script.kitchen_lights_full
+
+- alias: Kitchen Light Half
+  trigger:
+  - platform: state
+    entity_id: input_boolean.kitchen_light_on_manual, input_boolean.kitchen_light_on_auto
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kitchen_light_on_manual
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.kitchen_light_on_auto
+        state: 'on'
+  action:
+  - service: script.kitchen_lights_half
+
+- alias: Kitchen Light Off
+  trigger:
+  - platform: state
+    entity_id: input_boolean.kitchen_light_on_manual, input_boolean.kitchen_light_on_auto
+    from: 'on'
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.kitchen_light_on_manual
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.kitchen_light_on_auto
+        state: 'off'
+  action:
+  - service: script.kitchen_lights_off
