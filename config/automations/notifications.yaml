@@ -18,14 +18,36 @@
   - platform: state
     entity_id: binary_sensor.tapo_camera_eingang_motion
     to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.at_home
+      state: 'off'
   action:
+  - service: camera.snapshot
+    entity_id: camera.tapo_camera_eingang_sd
+    data:
+      filename: '/config/www/data/eingang_1.jpg'
+  - delay: '00:00:01'
+  - service: camera.snapshot
+    entity_id: camera.tapo_camera_eingang_sd
+    data:
+      filename: '/config/www/data/eingang_2.jpg'
+  - delay: '00:00:01'
+  - service: camera.snapshot
+    entity_id: camera.tapo_camera_eingang_sd
+    data:
+      filename: '/config/www/data/eingang_3.jpg'
   - service: notify.notify_telegram
     data:
       message: foo
       data:
         photo:
-        - url: !secret door_camera_uri_sd
-          caption: Bewegung im Eingangsbereich
+        - file: '/config/www/data/eingang_1.jpg'
+          caption: Bewegung im Eingangsbereich 1
+        - file: '/config/www/data/eingang_2.jpg'
+          caption: Bewegung im Eingangsbereich 2
+        - file: '/config/www/data/eingang_3.jpg'
+          caption: Bewegung im Eingangsbereich 3
 
 
 
@@ -61,7 +83,9 @@
   action:
   - service: notify.notify_telegram
     data:
-      message: Zone verlassen
+      message: 'Zone verlassen. AtHome=False'
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.at_home
 
 
 
@@ -73,4 +97,6 @@
   action:
   - service: notify.notify_telegram
     data:
-      message: Zone betreten
+      message: 'Zone betreten. AtHome=True'
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.at_home

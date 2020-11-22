@@ -17,10 +17,14 @@ global_all_off:
     entity_id: input_select.livingroom_mode
     data:
       option: "Empty"
+  - service: input_select.select_option
+    entity_id: input_select.bedroom_mode
+    data:
+      option: "Empty"
 
   - service: script.kitchen_lights_off     # TODO: remove?
   - service: script.livingroom_lights_off  # TODO: remove?
-  - service: script.bedroom_lights_off
+  - service: script.bedroom_lights_off     # TODO: remove?
 
   - service: climate.set_temperature
     entity_id: climate.livingroom_thermostat

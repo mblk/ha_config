@@ -1,14 +1,31 @@
 
+homeassistant:
+  auth_providers:
+#    - type: trusted_networks
+#      trusted_networks:
+#        - 192.168.178.0/24
+#        - 127.0.0.0/24
+#        - 172.17.0.0/16
+#    - type: legacy_api_password
+#      api_password: !secret http_password
+    - type: homeassistant
+
+  whitelist_external_dirs:
+    - "/config/www/data"
+
+#http: 
+#  api_password: !secret http_password
+
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Text to speech
+
 tts:
   - platform: google_translate
 
+
 group: !include groups.yaml
 scene: !include scenes.yaml
-
 automation: !include_dir_merge_list config/automations/
 script: !include_dir_merge_named config/scripts/
 
@@ -23,6 +40,9 @@ input_boolean:
   kitchen_light_on_auto:
     name: "Küchenlicht an (automatik)"
     initial: False
+  at_home:
+    name: "Zuhause"
+    initial: True
 
 input_datetime:
   wakeup_time:
@@ -37,6 +57,14 @@ input_select:
       - Empty
       - Work
       - Movie
+    initial: Empty
+  bedroom_mode:
+    name: "Schlafzimmer Modus"
+    options:
+      - Empty
+      - Work
+      - Wakeup
+      - Wakedown
     initial: Empty
 
 timer:
