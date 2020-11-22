@@ -1,29 +1,34 @@
 
+#
+# Turn off all things
+#
 
 global_all_off:
   alias: Alles aus
   mode: single
 
   sequence:
+
   - service: input_boolean.turn_off
-    #data: {}
-    entity_id: input_boolean.kitchen_light_always_on
+    entity_id: input_boolean.kitchen_light_on_manual
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.kitchen_light_on_auto
+  - service: input_select.select_option
+    entity_id: input_select.livingroom_mode
+    data:
+      option: "Empty"
+
+  - service: script.kitchen_lights_off     # TODO: remove?
+  - service: script.livingroom_lights_off  # TODO: remove?
+  - service: script.bedroom_lights_off
 
   - service: climate.set_temperature
     entity_id: climate.livingroom_thermostat
     data:
       temperature: '5'
       hvac_mode: heat
-
   - service: climate.set_temperature
     entity_id: climate.bedroom_thermostat
     data:
       temperature: '5'
       hvac_mode: heat
-
-  - scene: scene.wohnzimmer_licht_aus
-
-  - scene: scene.schlafzimmer_licht_aus
-
-  - service: script.kitchen_lights_off
-    #data: {}

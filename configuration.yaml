@@ -9,9 +9,6 @@ tts:
 group: !include groups.yaml
 scene: !include scenes.yaml
 
-#automation: !include automations.yaml
-#script a: !include scripts.yaml
-
 automation: !include_dir_merge_list config/automations/
 script: !include_dir_merge_named config/scripts/
 
@@ -32,6 +29,15 @@ input_datetime:
     name: "Weckzeit"
     has_date: false
     has_time: true
+
+input_select:
+  livingroom_mode:
+    name: "Wohnzimmer Modus"
+    options:
+      - Empty
+      - Work
+      - Movie
+    initial: Empty
 
 timer:
   wakeup_alarm_timeout:

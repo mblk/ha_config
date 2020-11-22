@@ -36,7 +36,7 @@
 
 
 
-- alias: Wake-up Alarm
+- alias: Wakeup Alarm
   trigger:
   - platform: time
     at: input_datetime.wakeup_time
@@ -53,7 +53,7 @@
 
 
 
-- alias: Alarm auto-off
+- alias: Wakeup Alarm auto-off
   trigger:
   - platform: event
     event_type: timer.finished

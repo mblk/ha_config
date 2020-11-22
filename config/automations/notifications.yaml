@@ -1,7 +1,7 @@
 
 
 
-- alias: Eingang Tür Notification
+- alias: Entry Door Opened Notification
   trigger:
   - platform: state
     entity_id: binary_sensor.entry_door
@@ -10,6 +10,22 @@
   - service: notify.notify_telegram
     data:
       message: Eingangstür geöffnet
+
+
+
+- alias: Entry Camera Motion Notification
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.tapo_camera_eingang_motion
+    to: 'on'
+  action:
+  - service: notify.notify_telegram
+    data:
+      message: foo
+      data:
+        photo:
+        - url: !secret door_camera_uri_sd
+          caption: Bewegung im Eingangsbereich
 
 
 

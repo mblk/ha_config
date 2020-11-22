@@ -1,0 +1,44 @@
+
+#
+# Buttons
+#
+
+- alias: Kitchen Button 3
+  trigger:
+  - platform: device
+    device_id: f54b5fae010cb7fa45492f457fe71b43
+    domain: zha
+    type: remote_button_alt_short_press
+    subtype: button_3
+  action:
+  - service: input_select.select_next
+    entity_id: input_select.livingroom_mode
+
+
+#
+# Lights based on mode
+#
+
+- alias: Livingroom Light Off (Empty)
+  trigger:
+    platform: state
+    entity_id: input_select.livingroom_mode
+    to: "Empty"
+  action:
+    service: script.livingroom_lights_off
+
+- alias: Livingroom Light On (Work)
+  trigger:
+    platform: state
+    entity_id: input_select.livingroom_mode
+    to: "Work"
+  action:
+    service: script.livingroom_lights_full
+
+- alias: Livingroom Light Half (Movie)
+  trigger:
+    platform: state
+    entity_id: input_select.livingroom_mode
+    to: "Movie"
+  action:
+    service: script.livingroom_lights_half
