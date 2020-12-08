@@ -36,3 +36,8 @@ global_all_off:
     data:
       temperature: '5'
       hvac_mode: heat
+  - service: climate.set_temperature
+    entity_id: climate.bath_thermostat
+    data:
+      temperature: '5'
+      hvac_mode: heat

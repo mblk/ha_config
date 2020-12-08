@@ -1,5 +1,6 @@
-
-
+#
+# Buttons
+#
 
 - alias: Bedroom Button 1
   trigger:
@@ -9,16 +10,10 @@
     type: remote_button_alt_short_press
     subtype: button_1
   action:
-    - service: light.turn_on
-      entity_id: light.bedroom_led_1
-      data:
-        brightness_pct: 25
-    - service: light.turn_on
-      entity_id: light.bedroom_led_2
-      data:
-        brightness_pct: 25
-
-
+  - service: input_select.select_option
+    entity_id: input_select.bedroom_mode
+    data:
+      option: 'Wakedown'    
 
 - alias: Bedroom Button 2
   trigger:
@@ -28,13 +23,62 @@
     type: remote_button_alt_short_press
     subtype: button_2
   action:
-    - service: light.turn_off
-      entity_id: light.bedroom_led_1
-    - service: light.turn_off
-      entity_id: light.bedroom_led_2
+  - service: input_select.select_option
+    entity_id: input_select.bedroom_mode
+    data:
+      option: 'Empty'
+
+#
+# Lights / radio based on mode
+#
+
+- alias: 'Bedroom: Any to Empty'
+  trigger:
+    platform: state
+    entity_id: input_select.bedroom_mode
+    to: 'Empty'
+  action:
+    service: script.bedroom_lights_off
+
+- alias: 'Bedroom: Any to Work'
+  trigger:
+    platform: state
+    entity_id: input_select.bedroom_mode
+    to: 'Work'
+  action:
+    service: script.bedroom_lights_full
+
+- alias: 'Bedroom: Any to Wakedown'
+  trigger:
+    platform: state
+    entity_id: input_select.bedroom_mode
+    to: 'Wakedown'
+  action:
+    service: script.bedroom_lights_half
+
+- alias: 'Bedroom: Any to Wakeup'
+  trigger:
+    platform: state
+    entity_id: input_select.bedroom_mode
+    to: 'Wakeup'
+  action:
+  - service: script.bedroom_lights_half
+  - service: script.bedroom_radio_on
+
+- alias: 'Bedroom: Wakeup to Any'
+  trigger:
+    platform: state
+    entity_id: input_select.bedroom_mode
+    from: 'Wakeup'
+  action:
+  - service: script.bedroom_radio_off
+  - service: timer.cancel
+    entity_id: timer.wakeup_alarm_timeout
 
 
-
+#
+# Alarm
+#
 
 - alias: Wakeup Alarm
   trigger:
@@ -45,11 +89,14 @@
     entity_id: input_boolean.wakeup_alarm
     state: 'on'
   action:
-  - service: script.bedroom_radio_on
+  - service: input_select.select_option
+    entity_id: input_select.bedroom_mode
+    data:
+      option: "Wakeup"
   - service: timer.start
     entity_id: timer.wakeup_alarm_timeout
     data:
-      duration: '00:15:00'
+      duration: '01:00:00'
 
 
 
@@ -61,6 +108,8 @@
       entity_id: timer.wakeup_alarm_timeout
   condition: []
   action:
-  - service: script.bedroom_radio_off
-
+  - service: input_select.select_option
+    entity_id: input_select.bedroom_mode
+    data:
+      option: 'Empty'  
 
